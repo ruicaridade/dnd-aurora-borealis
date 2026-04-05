@@ -1,0 +1,257 @@
+---
+name: campaign-wiki
+description: Manage a D&D campaign wiki in Obsidian — ingest session notes, update existing character/location/item/lore pages, and create new ones with proper cross-linking. Use this skill whenever the user mentions session notes, raw notes, adding campaign details, updating the wiki, creating character or location pages, or anything related to their D&D campaign vault. Also trigger when files appear in the _Raw Notes folder or the user pastes session content directly.
+---
+
+# Campaign Wiki Manager
+
+You are managing an Obsidian vault for an ongoing D&D 5e campaign called **Aurora Borealis**. This vault is the canonical record of the campaign's lore, characters, locations, items, and session history. Your job is to keep it accurate, richly detailed, and well-linked.
+
+## Vault Structure
+
+```
+Aurora Borealis Campaign/
+├── Aurora Borealis.md          # Campaign overview and navigation hub
+├── Characters/
+│   ├── Party/                  # Player characters
+│   ├── NPCs/                   # Named non-player characters
+│   └── Antagonists/            # Villains and enemies
+├── Locations/                  # Cities, dungeons, taverns, regions
+├── Items/                      # Weapons, artifacts, magical objects
+├── Lore/                       # History, mythology, factions, concepts
+├── Sessions/                   # Processed session logs (Session 01.md, etc.)
+├── _Raw Notes/                 # Unprocessed session notes dropped here
+├── Images/                     # Visual assets
+└── scripts/                    # Utility scripts
+```
+
+When any folder grows large enough that scrolling becomes tedious (~15-20 files), subdivide it. For example, `Locations/` could split into `Locations/Cities/`, `Locations/Dungeons/`, `Locations/Taverns/`. Use your judgment — the goal is easy navigation, not premature hierarchy.
+
+## Core Workflow
+
+Every interaction follows one of two paths. Choosing the right path is important — read the criteria carefully.
+
+### Path A — Session Ingestion
+
+**Only** use this path when one of these conditions is met:
+- A file in `_Raw Notes/` has "session" in its filename (e.g., `session-55.md`, `Session Notes.md`)
+- The user explicitly says they want to create a new session (e.g., "process these session notes", "here's what happened in our latest session", "add this as session 55")
+
+If neither condition is met, use **Path B** instead. A message describing events or new information about the campaign is a direct update, not a session — even if it contains a lot of detail. Session logs are specifically for recording what happened during actual play sessions at the table.
+
+1. **Read the raw notes.** Check `_Raw Notes/` for any files. If the user pasted notes directly, use those.
+2. **Determine the session number.** Look at existing files in `Sessions/` and increment. If the filename or content says "session N", use that number.
+3. **Review for clarity.** Read through the notes carefully. If anything is ambiguous, contradictory, or unclear — ask the user before proceeding. Don't guess at plot details. Examples of things to ask about:
+   - A name that could refer to multiple characters
+   - An event that contradicts established lore
+   - Unclear cause-and-effect ("they fought and then the city fell" — who destroyed it?)
+4. **Write the session log** to `Sessions/Session NN.md` using the session format (see Templates below).
+5. **Update the wiki.** This is the most important step. Go through every entity mentioned in the session and:
+   - **Existing pages**: Add new information to the relevant sections. New events go under the appropriate heading, new relationships get added to the Relationships section, status changes get reflected in Basic Information.
+   - **New entities**: Create pages for any new named character, location, item, or lore concept (see "When to Create a Page" below).
+6. **Update the hub.** If a new party member, key NPC, or antagonist appeared, update `Aurora Borealis.md` accordingly.
+7. **Clean up.** If the notes came from `_Raw Notes/`, move or delete the raw file after processing.
+
+### Path B — Direct Updates
+
+This is the default path. If the user provides information about characters, locations, items, or events without explicitly requesting a session log, treat it as a direct wiki update. Do **not** create a session file.
+
+Read the relevant existing pages first, make the changes, create new pages as needed, and ensure cross-links are consistent. Update the hub if significant new entities are introduced.
+
+## When to Create a Page
+
+Create a new wiki page when:
+- A character **introduces themselves by name** — always
+- A **location is visited or named** — always. Even if the party just passes through, if it has a name, it gets a page
+- An **item of significance** is found, purchased, or referenced — magic items always; mundane items only if they're plot-relevant
+- A **lore concept** is introduced that will be referenced again — factions, historical events, deities, prophecies
+- Any entity is **referenced on two or more existing pages** — it deserves its own page
+
+Do NOT create pages for:
+- Unnamed guards, shopkeepers, or other background characters who don't interact meaningfully
+- Generic locations ("a tavern", "the road") with no name
+- Throwaway items with no narrative significance
+
+When in doubt about borderline cases, ask the user.
+
+## Cross-Linking Rules
+
+This is critical for the wiki's usefulness.
+
+- **Every mention** of a character, location, item, or lore entry that has its own page must be wrapped in `[[wiki links]]`. No exceptions.
+- On first mention in a section, use the full link: `[[Kallum]]`. Don't over-link — once per section is enough for the same entity.
+- For display names that differ from filenames, use `[[Filename|Display Name]]`. Example: `[[Laudna Briarwood|Laudna]]`.
+- When creating or updating a page, scan for any names that match existing pages and link them.
+- When creating a new page, also scan existing pages that mention this entity and add links there too. Use Grep to find references.
+
+## Writing Style
+
+- **Rich but factual.** Write like a campaign encyclopedia, not a novel. Capture details — physical descriptions, exact words spoken, emotional reactions, tactical decisions — but keep the prose clear and direct.
+- **Preserve exact quotes.** If the session notes include memorable dialogue, keep it as a blockquote: `> "exact words here"`
+- **Capture the small details.** A throwaway comment from an NPC about their past, a weird environmental detail in a dungeon, a seemingly insignificant item — these often become important later. When in doubt, include it.
+- **Bold key terms** on first mention in a section for scanability.
+- **Use `---` horizontal rules** to separate major sections.
+- **Bullet points** for events and facts. Prose paragraphs for overviews and descriptions.
+
+## Templates
+
+### Session Log
+
+```markdown
+---
+session: [number]
+date: [real-world date, YYYY-MM-DD]
+location: [primary location(s)]
+---
+# Session [number] - [Title]
+
+- Event bullet points using [[wiki links]] for all named entities
+- Each major beat gets its own bullet
+- Sub-bullets for details within a beat
+```
+
+The title should be evocative — capture the session's tone or central event. Look at existing sessions for the style (e.g., "Session 54 - Sucking and Blowing").
+
+### Character (NPC / Party / Antagonist)
+
+```markdown
+# [Character Name]
+
+## Basic Information
+
+| | |
+|---|---|
+| **Race** | [Race] |
+| **Class** | [Class, if known] |
+| **Title/Role** | [Title or role] |
+| **Location** | [[Current location]] |
+| **Status** | [Active / Deceased / Missing / etc.] |
+
+---
+
+## [Relevant narrative sections — History, Role in the Campaign, Background, etc.]
+
+- Key facts as bullet points with [[wiki links]]
+
+---
+
+## Relationships
+
+- **[[Character Name]]** — Description of the relationship.
+```
+
+Only include rows in Basic Information that are known. Don't add empty or "Unknown" rows. The narrative sections should be named based on what's actually relevant to the character — don't force a rigid structure. A shopkeeper might just have "Role in the Campaign", while a major NPC might have "History", "Powers", "The Betrayal", etc.
+
+### Location
+
+```markdown
+# [Location Name]
+
+[One-paragraph introduction placing this location geographically and narratively.]
+
+---
+
+## Overview
+
+[Expanded description — geography, culture, political context, atmosphere.]
+
+---
+
+## Key Locations
+
+### [Sub-location Name]
+- Details about this place within the larger location
+
+---
+
+## Events
+
+- Bullet points of things that happened here, with [[wiki links]]
+
+---
+
+## Connections
+
+- Geographic and narrative connections to other [[locations]]
+
+---
+
+## Notable NPCs
+
+- [[NPC Name]] — brief description of their connection to this place
+```
+
+Not every location needs all sections. A small tavern might just have an intro and Key Locations. A major city needs the full treatment.
+
+### Item
+
+```markdown
+---
+type: [Weapon / Armor / Wondrous Item / Vestige of Divergence / etc.]
+rarity: [Common / Uncommon / Rare / Very Rare / Legendary / Artifact]
+wielder: [Current wielder, if any]
+status: [Dormant / Awakened / Exalted / Active / Lost / etc.]
+---
+# [Item Name]
+
+[Brief description of the item's appearance and nature.]
+
+## History
+
+- How it was found/acquired, with [[wiki links]]
+
+## Notable Uses
+
+- Significant moments where the item was used in the campaign
+```
+
+### Lore Entry
+
+```markdown
+# [Concept Name]
+
+[Introductory paragraph explaining what this is and why it matters.]
+
+---
+
+## [Relevant sections — these vary widely by topic]
+
+- Historical events, theological concepts, faction details, etc.
+
+---
+
+## Legacy / Current Relevance
+
+- How this lore connects to the present-day campaign
+```
+
+## Categorization
+
+Place new files in the right folder:
+
+- **Party members** → `Characters/Party/`
+- **Friendly or neutral named NPCs** → `Characters/NPCs/`
+- **Villains, corrupted characters, hostile named enemies** → `Characters/Antagonists/`
+- **Named places** → `Locations/`
+- **Named items, especially magical ones** → `Items/`
+- **Historical events, deities, factions, concepts** → `Lore/`
+
+If context makes it unclear whether someone is an NPC or Antagonist, default to NPC and note their ambiguity — the user can reclassify later.
+
+## Handling Contradictions
+
+The campaign has been running for years. If new session notes contradict something on an existing page:
+
+1. Don't silently overwrite. Flag it to the user: "The existing page for X says Y, but the session notes say Z. Which is correct?"
+2. If the contradiction is clearly a retcon by the DM, update the page and note it was revised.
+3. If it's ambiguous, ask.
+
+## After Every Update
+
+Before finishing, do a quick sanity check:
+
+- Did every named entity get linked?
+- Did any new entity deserve its own page?
+- Are the Relationships sections on affected pages up to date?
+- Does `Aurora Borealis.md` need updating (new party members, key NPCs, antagonists)?
+- Is the information you added consistent with what's already in the vault?

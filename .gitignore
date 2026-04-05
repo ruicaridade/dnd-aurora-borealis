@@ -1,11 +1,19 @@
-.DS_Store
-.gitignore
+# Quartz
 node_modules
 public
 prof
 tsconfig.tsbuildinfo
-.obsidian
 .quartz-cache
-private/
 .replit
 replit.nix
+
+# Obsidian
+.obsidian/
+
+# Raw notes (working folder, cleaned after processing)
+_Raw Notes/*
+!_Raw Notes/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
