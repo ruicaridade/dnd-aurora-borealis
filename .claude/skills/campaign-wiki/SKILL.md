@@ -253,5 +253,20 @@ Before finishing, do a quick sanity check:
 - Did every named entity get linked?
 - Did any new entity deserve its own page?
 - Are the Relationships sections on affected pages up to date?
-- Does `Aurora Borealis.md` need updating (new party members, key NPCs, antagonists)?
+- Does `content/index.md` need updating (new party members, key NPCs, antagonists)?
 - Is the information you added consistent with what's already in the vault?
+
+## Committing and Pushing
+
+After completing any wiki update, **always commit and push the changes** so the published website stays in sync. The vault content lives in a separate git repository (the `content/` submodule), so you need to commit inside `content/` and then update the parent repo.
+
+1. **Commit inside `content/`:**
+   ```bash
+   cd content && git add -A && git commit -m "<descriptive message>" && git push && cd ..
+   ```
+2. **Update the submodule reference in the parent repo:**
+   ```bash
+   git add content && git commit -m "Update content submodule" && git push
+   ```
+
+This ensures both the vault repo and the Quartz site repo stay up to date, and the GitHub Pages deployment triggers automatically.
