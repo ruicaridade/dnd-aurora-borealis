@@ -78,9 +78,11 @@ When in doubt about borderline cases, ask the user.
 
 This is critical for the wiki's usefulness.
 
+- **No broken links. Ever.** Every `[[wiki link]]` must point to a page that exists. If you add a link, the target page must already exist or you must create it in the same update. Before finishing any update, verify that every link you wrote or modified has a corresponding file.
 - **Every mention** of a character, location, item, or lore entry that has its own page must be wrapped in `[[wiki links]]`. No exceptions.
 - On first mention in a section, use the full link: `[[Kallum]]`. Don't over-link — once per section is enough for the same entity.
 - For display names that differ from filenames, use `[[Filename|Display Name]]`. Example: `[[Laudna Briarwood|Laudna]]`.
+- **Avoid duplicate filenames** across folders. If two files share the same name, links become ambiguous. Merge duplicates or use distinct names.
 - When creating or updating a page, scan for any names that match existing pages and link them.
 - When creating a new page, also scan existing pages that mention this entity and add links there too. Use Grep to find references.
 
