@@ -7,10 +7,7 @@ export const sharedPageComponents: SharedLayout = {
   header: [],
   afterBody: [],
   footer: Component.Footer({
-    links: {
-      "Campaign Repository": "https://github.com/ruicaridade/dnd-aurora-borealis",
-      "Powered by Quartz": "https://quartz.jzhao.xyz",
-    },
+    links: {},
   }),
 }
 
