@@ -7,6 +7,35 @@ description: Manage a D&D campaign wiki in Obsidian — ingest session notes, up
 
 You are managing an Obsidian vault for an ongoing D&D 5e campaign called **Aurora Borealis**. This vault is the canonical record of the campaign's lore, characters, locations, items, and session history. Your job is to keep it accurate, richly detailed, and well-linked.
 
+## Setting — Exandria (Critical Role)
+
+This campaign is set in **Exandria**, the world created by Matthew Mercer for **Critical Role**. Many locations, characters, items, and lore concepts originate from the published Critical Role material. The campaign adds a homebrew continent called **Akothis** and custom storylines built on top of the canonical setting.
+
+### Cross-Referencing with Critical Role
+
+Use the **Critical Role Fandom wiki API** to verify and enrich content:
+
+```
+https://criticalrole.fandom.com/api.php?action=parse&page=PAGE_NAME&prop=wikitext&format=json
+```
+
+**When to cross-reference:**
+- When creating or updating pages for locations, characters, or items — check if they exist in CR canon
+- When details seem incomplete — the CR wiki may have canonical geography, population, political structure, or history that enriches the page
+- When placing locations geographically — verify which continent/region they belong to in canon
+- When session notes introduce a name you don't recognise — it might be from published CR material
+
+**How to handle canon vs. homebrew:**
+- If a location/character/item exists in the CR wiki, use its canonical details as a foundation (geography, political structure, demographics, etc.) and layer the campaign's custom events on top
+- If it doesn't exist in the CR wiki, it's homebrew — document it based purely on session notes and user input
+- If the campaign contradicts CR canon (e.g., a city that's intact in CR but destroyed in the campaign), the campaign version takes precedence — but note the canonical baseline where useful for context
+
+**Key canonical elements in this campaign:**
+- **Exandria** — the world (continents: Tal'Dorei, Wildemount, Marquet, Issylra, Shattered Teeth + homebrew Akothis)
+- **Wildemount** locations — Rexxentrum, Zadash, Nicodranas, Alfield, Palebank Village (Greying Wildlands)
+- **The Calamity**, **Tiamat**, **Bahamut**, **Avernus** — canonical D&D/CR lore adapted for the campaign
+- **Akothis** and its locations (Nanaze, Shalarag, Jinsan, Dumglod, Drar, etc.) — entirely homebrew
+
 ## Vault Structure
 
 ```
@@ -16,16 +45,31 @@ Aurora Borealis Campaign/
 │   ├── Party/                  # Player characters
 │   ├── NPCs/                   # Named non-player characters
 │   └── Antagonists/            # Villains and enemies
-├── Locations/                  # Cities, dungeons, taverns, regions
-├── Items/                      # Weapons, artifacts, magical objects
-├── Lore/                       # History, mythology, factions, concepts
+├── Locations/
+│   ├── Exandria/               # The world — hierarchical geographic structure
+│   │   ├── Akothis/            # Homebrew continent (primary campaign setting)
+│   │   ├── Wildemount/         # CR canon continent
+│   │   └── Tal'Dorei/          # CR canon continent
+│   ├── Planes/                 # Other planes of existence (Avernus, pocket dimensions)
+│   └── Vehicles/               # Ships, vehicles (The Golden Minnow, Sand Witch)
+├── Items/
+│   ├── Vestiges of Divergence/  # Legendary living artifacts that grow with their wielders
+│   ├── Artifacts/               # Unique powerful items (Chalice of Souls, Dragon Mask, etc.)
+│   └── Wondrous Items/          # General magical items, weapons, rings, consumables
+├── Lore/
+│   ├── Gods & Deities/          # Bahamut, Tiamat, Pelor, Falazure, Raven Queen
+│   ├── Fiends & Fey/            # Demon lords, archfey (Orcus, Titania)
+│   ├── Factions/                # Organizations (Black Senate, Cobalt Soul)
+│   ├── History/                 # Historical events and figures (The Calamity, Vespin Chloras)
+│   ├── Cosmology/               # Planes, metaphysics (Mechanus, Vestiges of Divergence)
+│   └── Creatures/               # Monster/creature types (Frostmourns)
 ├── Sessions/                   # Processed session logs (Session 01.md, etc.)
 ├── _Raw Notes/                 # Unprocessed session notes dropped here
 ├── Images/                     # Visual assets
 └── scripts/                    # Utility scripts
 ```
 
-When any folder grows large enough that scrolling becomes tedious (~15-20 files), subdivide it. For example, `Locations/` could split into `Locations/Cities/`, `Locations/Dungeons/`, `Locations/Taverns/`. Use your judgment — the goal is easy navigation, not premature hierarchy.
+Locations use a **hierarchical geographic structure**: World → Continent → City/Region → Sub-location. Cities that contain named sub-locations (e.g., Shalarag with its Citadel, Church, and Obsidian Prison) get their own subfolder. When any folder grows large enough that scrolling becomes tedious (~15-20 files), subdivide further.
 
 ## Core Workflow
 
@@ -234,9 +278,24 @@ Place new files in the right folder:
 - **Party members** → `Characters/Party/`
 - **Friendly or neutral named NPCs** → `Characters/NPCs/`
 - **Villains, corrupted characters, hostile named enemies** → `Characters/Antagonists/`
-- **Named places** → `Locations/`
-- **Named items, especially magical ones** → `Items/`
-- **Historical events, deities, factions, concepts** → `Lore/`
+- **Named places** → `Locations/` using the geographic hierarchy:
+  - Places on Akothis → `Locations/Exandria/Akothis/` (or a city subfolder if it's a sub-location)
+  - Places on Wildemount → `Locations/Exandria/Wildemount/`
+  - Places on Tal'Dorei → `Locations/Exandria/Tal'Dorei/`
+  - Other planes, pocket dimensions → `Locations/Planes/`
+  - Ships, vehicles → `Locations/Vehicles/`
+  - **Cross-reference with the CR wiki** to determine the correct continent/region for canonical locations
+- **Named items** → `Items/` using subcategories:
+  - Vestiges of Divergence → `Items/Vestiges of Divergence/`
+  - Unique powerful artifacts → `Items/Artifacts/`
+  - All other magical items (weapons, rings, wondrous items, consumables) → `Items/Wondrous Items/`
+- **Lore entries** → `Lore/` using subcategories:
+  - Gods and deities (Bahamut, Tiamat, Pelor, etc.) → `Lore/Gods & Deities/`
+  - Demon lords, archfey, powerful extraplanar beings → `Lore/Fiends & Fey/`
+  - Organizations and factions → `Lore/Factions/`
+  - Historical events and historical figures → `Lore/History/`
+  - Planes, metaphysical concepts, broad magical systems → `Lore/Cosmology/`
+  - Monster and creature types → `Lore/Creatures/`
 
 If context makes it unclear whether someone is an NPC or Antagonist, default to NPC and note their ambiguity — the user can reclassify later.
 
