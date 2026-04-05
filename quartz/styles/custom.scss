@@ -1,3 +1,338 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+// ============================================================
+// Aurora Borealis Campaign Wiki — "The Chronicler's Grimoire"
+// ============================================================
+
+// --- Aurora color tokens ---
+:root {
+  --aurora-teal: #00d4aa;
+  --aurora-violet: #9b59d0;
+  --aurora-emerald: #2ecc71;
+  --aurora-gold: #c9a84c;
+  --aurora-crimson: #8b1a1a;
+  --aurora-midnight: #0a0e1a;
+  --parchment: #e8dcc8;
+}
+
+// --- Atmospheric background ---
+[saved-theme="dark"] {
+  body {
+    background:
+      radial-gradient(ellipse 80% 40% at 20% 0%, rgba(0, 212, 170, 0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 35% at 80% 5%, rgba(155, 89, 208, 0.035) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 30% at 50% 0%, rgba(46, 204, 113, 0.025) 0%, transparent 50%),
+      var(--light);
+  }
+}
+
+// --- Page title: gilded with aurora shimmer ---
+.page-title {
+  font-variant: small-caps;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+
+  [saved-theme="dark"] & {
+    background: linear-gradient(135deg, var(--aurora-gold) 0%, #e0c878 40%, var(--aurora-teal) 80%, var(--aurora-violet) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: aurora-shimmer 8s ease-in-out infinite;
+  }
+}
+
+@keyframes aurora-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+// --- Article titles ---
+article h1 {
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  position: relative;
+  padding-bottom: 0.5rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--aurora-gold) 15%,
+      var(--aurora-teal) 50%,
+      var(--aurora-gold) 85%,
+      transparent 100%
+    );
+    opacity: 0.5;
+  }
+}
+
+// --- Section headings: ornamental ---
+article h2 {
+  position: relative;
+  padding-bottom: 0.35rem;
+  margin-top: 2.5rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--secondary) 0%, transparent 100%);
+    opacity: 0.35;
+  }
+}
+
+article h3 {
+  font-style: italic;
+  opacity: 0.9;
+}
+
+// --- Links: aurora glow on hover ---
+a {
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+
+  [saved-theme="dark"] &:hover {
+    color: var(--aurora-teal) !important;
+    text-shadow: 0 0 12px rgba(0, 212, 170, 0.3);
+  }
+}
+
+// --- Blockquotes: ancient scroll style ---
+blockquote {
+  position: relative;
+  border-left: 2px solid var(--aurora-gold);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+
+  [saved-theme="dark"] & {
+    background: linear-gradient(135deg, rgba(201, 168, 76, 0.04) 0%, rgba(0, 212, 170, 0.02) 100%);
+  }
+
+  [saved-theme="light"] & {
+    background: linear-gradient(135deg, rgba(107, 58, 42, 0.06) 0%, rgba(42, 110, 90, 0.03) 100%);
+  }
+
+  &::before {
+    content: "\201C";
+    position: absolute;
+    top: -0.15rem;
+    left: 0.5rem;
+    font-size: 2.5rem;
+    font-family: "Cinzel", serif;
+    color: var(--aurora-gold);
+    opacity: 0.25;
+    line-height: 1;
+  }
+}
+
+// --- Tables: manuscript ledger ---
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: 4px;
+
+  [saved-theme="dark"] & {
+    border: 1px solid rgba(201, 168, 76, 0.15);
+  }
+
+  th {
+    font-family: "Cinzel", serif;
+    font-variant: small-caps;
+    letter-spacing: 0.06em;
+    font-size: 0.85em;
+    text-transform: lowercase;
+
+    [saved-theme="dark"] & {
+      background: rgba(201, 168, 76, 0.06);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    }
+  }
+
+  td {
+    [saved-theme="dark"] & {
+      border-bottom: 1px solid rgba(201, 168, 76, 0.06);
+    }
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+// --- Horizontal rules: ornamental divider ---
+hr {
+  border: none;
+  height: 1px;
+  margin: 2rem 0;
+  position: relative;
+
+  [saved-theme="dark"] & {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(201, 168, 76, 0.2) 20%,
+      rgba(0, 212, 170, 0.15) 50%,
+      rgba(201, 168, 76, 0.2) 80%,
+      transparent 100%
+    );
+  }
+
+  [saved-theme="light"] & {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(107, 58, 42, 0.2) 20%,
+      rgba(42, 110, 90, 0.15) 50%,
+      rgba(107, 58, 42, 0.2) 80%,
+      transparent 100%
+    );
+  }
+
+  &::after {
+    content: "\2726";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.75rem;
+    color: var(--secondary);
+    opacity: 0.4;
+    background: var(--light);
+    padding: 0 0.75rem;
+  }
+}
+
+// --- Explorer sidebar ---
+.explorer {
+  h2 button {
+    font-variant: small-caps;
+    letter-spacing: 0.05em;
+  }
+}
+
+// --- Graph: aurora-tinted nodes ---
+[saved-theme="dark"] {
+  .graph-outer {
+    border: 1px solid rgba(201, 168, 76, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+}
+
+// --- Search ---
+#search-container {
+  input {
+    font-family: "Crimson Text", serif;
+
+    [saved-theme="dark"] & {
+      &::placeholder {
+        color: rgba(196, 184, 158, 0.4);
+      }
+    }
+  }
+}
+
+// --- Backlinks: subtle treatment ---
+.backlinks {
+  h3 {
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    font-style: normal;
+    opacity: 1;
+  }
+}
+
+// --- Bold text: slight gold warmth in dark mode ---
+[saved-theme="dark"] article strong {
+  color: var(--parchment);
+}
+
+// --- Custom scrollbar ---
+[saved-theme="dark"] {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--aurora-midnight);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(201, 168, 76, 0.2);
+    border-radius: 4px;
+
+    &:hover {
+      background: rgba(201, 168, 76, 0.35);
+    }
+  }
+}
+
+// --- Popover (link previews): grimoire pages ---
+.popover {
+  border-radius: 6px;
+
+  [saved-theme="dark"] & {
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.5),
+      0 0 1px rgba(201, 168, 76, 0.1);
+  }
+}
+
+// --- Breadcrumbs ---
+.breadcrumb-container {
+  opacity: 0.6;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  font-size: 0.85em;
+}
+
+// --- Footer ---
+footer {
+  opacity: 0.5;
+
+  a {
+    [saved-theme="dark"] &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// --- Tag pills ---
+a.tag-link {
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+}
+
+// --- Selection highlight ---
+[saved-theme="dark"] ::selection {
+  background: rgba(201, 168, 76, 0.25);
+  color: var(--parchment);
+}
+
+// --- Subtle grain texture overlay ---
+[saved-theme="dark"] body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
