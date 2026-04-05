@@ -22,7 +22,7 @@ const config: QuartzConfig = {
       cdnCaching: true,
       typography: {
         header: "Cinzel",
-        body: "Crimson Text",
+        body: "Lora",
         code: "JetBrains Mono",
       },
       colors: {
@@ -39,13 +39,13 @@ const config: QuartzConfig = {
         },
         darkMode: {
           light: "#0a0e1a",
-          lightgray: "#141b2e",
-          gray: "#3a4462",
-          darkgray: "#c4b89e",
-          dark: "#e8dcc8",
-          secondary: "#c9a84c",
+          lightgray: "#1a2340",
+          gray: "#4d5a7a",
+          darkgray: "#d0c5ad",
+          dark: "#ede3d3",
+          secondary: "#d4b054",
           tertiary: "#00d4aa",
-          highlight: "rgba(201, 168, 76, 0.08)",
+          highlight: "rgba(201, 168, 76, 0.10)",
           textHighlight: "#c9a84c33",
         },
       },

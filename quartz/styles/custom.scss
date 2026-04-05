@@ -143,7 +143,7 @@ table {
   border-radius: 4px;
 
   [saved-theme="dark"] & {
-    border: 1px solid rgba(201, 168, 76, 0.15);
+    border: 1px solid rgba(201, 168, 76, 0.25);
   }
 
   th {
@@ -154,15 +154,19 @@ table {
     text-transform: lowercase;
 
     [saved-theme="dark"] & {
-      background: rgba(201, 168, 76, 0.06);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      background: rgba(201, 168, 76, 0.1);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.25);
     }
   }
 
   td {
     [saved-theme="dark"] & {
-      border-bottom: 1px solid rgba(201, 168, 76, 0.06);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
     }
+  }
+
+  [saved-theme="dark"] & tr:nth-child(even) td {
+    background: rgba(201, 168, 76, 0.03);
   }
 
   tr:last-child td {
@@ -233,7 +237,7 @@ hr {
 // --- Search ---
 #search-container {
   input {
-    font-family: "Crimson Text", serif;
+    font-family: "Lora", serif;
 
     [saved-theme="dark"] & {
       &::placeholder {
